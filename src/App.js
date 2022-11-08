@@ -6,6 +6,11 @@ import Login from './Components/Login/Login';
 import Error from './Components/Error/Error';
 import Register from './Components/Register/Register';
 import Blog from './Components/Blog/Blog';
+import Home from './Components/Home/Home';
+import AddService from './Components/AddService/AddService';
+import MyReviews from './Components/MyReviews/MyReviews';
+import Services from './Components/Services/Services';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {
   const router = createBrowserRouter([
@@ -29,6 +34,31 @@ function App() {
         {
           path: "blog",
           element: <Blog></Blog>,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "/",
+          element: <Home></Home>,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "home",
+          element: <Home></Home>,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "addservice",
+          element: <PrivateRoute><AddService></AddService></PrivateRoute> ,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "myreview",
+          element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "services",
+          element: <Services></Services>,
           errorElement: <Error></Error>
         },
         { path: '*', element: <Error/>},

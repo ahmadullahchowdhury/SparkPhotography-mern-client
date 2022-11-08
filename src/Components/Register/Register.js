@@ -18,7 +18,7 @@ const Register = () => {
     
     e.preventDefault();
     const name = e.target.name.value;
-    // const photoURL = e.target.photoURL.value;
+    const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -28,7 +28,7 @@ const Register = () => {
         const user = userCredential.user;
         alert("Please go to login page");
         // ...
-        handleUserUpdate(name);
+        handleUserUpdate(name, photoURL );
         navigate("/login")
       })
       .catch((error) => {
@@ -38,9 +38,10 @@ const Register = () => {
         // ..
       });
 
-      const handleUserUpdate = (name) => {
+      const handleUserUpdate = (name, photoURL) => {
         const profile = {
           displayName: name,
+          photoURL : photoURL
         };
     
         profileUpdate(profile)
@@ -67,6 +68,17 @@ const Register = () => {
                     className="input input-bordered"
                   />
                 </div>
+                <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo Url</span>
+                </label>
+                <input
+                  type="text"
+                  name="photoURL"
+                  placeholder="Photo URL"
+                  className="input input-bordered"
+                />
+              </div>
 
                 <div className="form-control">
                   <label className="label">
