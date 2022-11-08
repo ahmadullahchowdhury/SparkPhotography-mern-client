@@ -1,6 +1,8 @@
 import React from 'react';
+import useTitle from '../Hooks/hooks';
 
 const Home = () => {
+    useTitle('Home')
     return (
         <div>
            <h1 className='text-3xl font-bold text-center p-4' >Welcome to Spark Photography</h1> 

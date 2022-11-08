@@ -3,6 +3,7 @@ import {useNavigate , useLocation , Link} from 'react-router-dom'
 import { getAuth  } from "firebase/auth";
 import app from "../Firebase/Firebase.init";
 import { fireAuthContext } from "../../Context/Context";
+import useTitle from "../Hooks/hooks";
 
 const auth = getAuth(app);
 
@@ -10,6 +11,7 @@ const auth = getAuth(app);
 
 
 const Login = () => {
+  useTitle('Login')
     
     const [error, setError] = useState('')
     let location = useLocation()
