@@ -16,7 +16,7 @@ const Services = () => {
                   <h2 className="card-title"> Price: {service.price}</h2>
                   <p>{service.description.slice(0,100)}</p>
                   <div className="card-actions justify-end">
-                  <Link  className='btn btn-primary' to={`/services/${service._id}`}>See All </Link>
+                  <Link  className='btn btn-primary' to={`/services/${service._id}`}>See More </Link>
                   </div>
                 </div>
               </div>

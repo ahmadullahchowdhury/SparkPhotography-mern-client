@@ -12,23 +12,22 @@ const ServiceDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
-        
-            const filterReview =  data.filter(review => review.service_id === service.service_id )
 
-        
+        const filterReview = data.filter(
+          (review) => review.service_id === service.service_id
+        );
 
         setReviews(filterReview);
-        
+
         // console.log(data)
       });
   }, [reviews, service.service_id]);
   //reviews, service.service_id
 
-    console.log(reviews)
-    // const filterReview =  reviews.filter(review => review.service_id === service.service_id )
-    // console.log(filterReview)
+  console.log(reviews);
+  // const filterReview =  reviews.filter(review => review.service_id === service.service_id )
+  // console.log(filterReview)
 
-  
   return (
     <div>
       <h1 className="m-4 font-3xl font-bold text-center">
@@ -41,23 +40,24 @@ const ServiceDetails = () => {
       <h1 className="m-4 font-3xl font-bold text-center">
         Here is Reviews of: {service.title}
       </h1>
-      
-      {
-reviews.map(review => <>
-<div className="flex justify-center m-3 p-3">
 
-<img className="w-10 h-10 rounded rounded-xl" src={review.user_img} alt="" />
-<div className="ml-4">
-<p>{review.name}</p>
-<h1>{review.details}</h1>
-</div>
-</div>
-
-</>
-)
-      }
-
- 
+      {reviews.map((review) => ( 
+        <>
+          <div key={review._id}>
+            <div className="flex justify-center m-3 p-3">
+              <img
+                className="w-10 h-10 rounded rounded-xl"
+                src={review.user_img}
+                alt=""
+              />
+              <div className="ml-4">
+                <p>{review.name}</p>
+                <h1>{review.details}</h1>
+              </div>
+            </div>
+          </div>
+        </>
+      ))}
     </div>
   );
 };

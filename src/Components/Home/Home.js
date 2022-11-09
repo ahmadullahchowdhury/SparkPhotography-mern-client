@@ -35,14 +35,14 @@ const Home = () => {
            <h1 className='text-3xl font-bold text-center p-4' >Explore List of services</h1> 
            <div className='grid grid-cols-3 justify-center'>
             {
-                services.map(service =>  <div key={service._id} className="card card-side bg-base-100 shadow-xl">
+                services.map(service =>  <div key={service._id} className=" w-96 mx-auto card card-side bg-base-100 shadow-xl">
                 <figure><img className='h-full' src={service.img} alt="img"/></figure>
                 <div className="card-body">
                   <h2 className="card-title">{service.title}</h2>
                   <h2 className="card-title"> Price: {service.price}</h2>
                   <p>{service.description.slice(0,100)}</p>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">See More</button>
+                  <Link  className='btn btn-primary' to={`/services/${service._id}`}>See More </Link>
                   </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@ const Home = () => {
            </div>
            <div className='flex justify-center'>
 
-            <Link  className='btn btn-primary' to='/services'>See All </Link>
+            <Link  className='btn btn-primary m-4 p-4' to='/services'>See All </Link>
 
            
            </div>
