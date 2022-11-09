@@ -38,11 +38,13 @@ function App() {
         },
         {
           path: "/",
+          loader :() => fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/service`),
           element: <Home></Home>,
           errorElement: <Error></Error>
         },
         {
           path: "home",
+          loader :() => fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/service`),
           element: <Home></Home>,
           errorElement: <Error></Error>
         },
