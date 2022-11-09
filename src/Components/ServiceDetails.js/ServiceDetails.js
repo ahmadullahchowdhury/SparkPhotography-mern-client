@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useLoaderData, Link, Navigate, useLocation } from "react-router-dom";
+import { fireAuthContext } from "../../Context/Context";
 
 const ServiceDetails = () => {
+  const { user } = useContext(fireAuthContext);
   const service = useLoaderData();
   const [reviews, setReviews] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     fetch(
@@ -24,9 +27,43 @@ const ServiceDetails = () => {
   }, [reviews, service.service_id]);
   //reviews, service.service_id
 
-  console.log(reviews);
+//   console.log(reviews);
+
+  //   const handleLoginClick = () => {
+  //      <Navigate to="/login" state={{from: location}} replace ></Navigate>
+  //   }
   // const filterReview =  reviews.filter(review => review.service_id === service.service_id )
   // console.log(filterReview)
+  const handleReview = (event) =>{
+    event.preventDefault();
+    const form = event.target;
+    const reviewDetails = form.reviewDetails.value;
+    const review = {
+        user_id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        user_img: user.photoURL,
+        details: reviewDetails,
+        service_name: service.title,
+        service_id: service.service_id
+    }
+    console.log(review)
+
+    fetch("https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(review),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          form.reset()
+        })
+        .catch((err) => console.error(err));
+
+  }
 
   return (
     <div>
@@ -41,7 +78,7 @@ const ServiceDetails = () => {
         Here is Reviews of: {service.title}
       </h1>
 
-      {reviews.map((review) => ( 
+      {reviews.map((review) => (
         <>
           <div key={review._id}>
             <div className="flex justify-center m-3 p-3">
@@ -58,6 +95,30 @@ const ServiceDetails = () => {
           </div>
         </>
       ))}
+      {user?.email ? (
+        "you can put review"
+      ) : (
+        <>
+          <Link to="/login" className="btn btn-secondary">
+            {" "}
+            Please Login First
+          </Link>
+        </>
+      )}
+
+
+<form onSubmit={handleReview}>
+        <input
+          type="text"
+          name="reviewDetails"
+          placeholder="Please Put your review here"
+          className="input input-bordered input-primary w-full max-w-xs"
+        />
+
+
+        <input className="btn" type="submit" value="Submit Review" />
+      </form>
+      <div></div>
     </div>
   );
 };

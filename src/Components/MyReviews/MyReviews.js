@@ -30,6 +30,27 @@ const MyReviews = () => {
       });
   }, [reviews, user.email]);
 
+  const handleDelete = id => {
+    const proceed = window.confirm(`Are you sure to delete this: ${id}`)
+    console.log(proceed)
+    
+    if(proceed){
+        fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews/${id}`, {
+            method: "DELETE" 
+        }).then(res => res.json()).then(data => {
+            console.log(data)
+            // if(data.deletedCount > 0) {
+
+            //     const remaining = displayEmail.filter(disEmail => disEmail._id !== id )
+            //     setDisplayEmail(remaining)
+            // }
+        })
+        
+    }
+
+
+  }
+
   useTitle("My Reviews");
   return (
     <div>
@@ -46,6 +67,7 @@ const MyReviews = () => {
               <p>{review.name}</p>
               <h1>{review.details}</h1>
             </div>
+            <button onClick={ () => handleDelete(review.details)} >Delete</button>
           </div>
         </>
       ))}
