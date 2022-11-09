@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import useTitle from "../Hooks/hooks";
 import { fireAuthContext } from "../../Context/Context";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MyReviews = () => {
   const { user } = useContext(fireAuthContext);
@@ -39,12 +41,13 @@ const MyReviews = () => {
             method: "DELETE" 
         }).then(res => res.json()).then(data => {
             console.log(data)
+            toast.success("Deleted Successfully", { autoClose: 1000 });
             // if(data.deletedCount > 0) {
 
             //     const remaining = displayEmail.filter(disEmail => disEmail._id !== id )
             //     setDisplayEmail(remaining)
             // }
-        })
+        }).catch((err) => console.error(err));
         
     }
 
@@ -64,13 +67,15 @@ const MyReviews = () => {
               alt=""
             />
             <div className="ml-4">
-              <p>{review.name}</p>
+              <p className="text-xl">{review.name}</p>
               <h1>{review.details}</h1>
             </div>
-            <button onClick={ () => handleDelete(review.details)} >Delete</button>
+            <button className="btn btn-warning m-3" onClick={ () => handleDelete(review._id)} >Delete</button>
+            <button className="btn btn-secondary m-3"  >Update Review</button>
           </div>
         </>
       ))}
+      <ToastContainer autoClose={1000}  />
     </div>
   );
 };

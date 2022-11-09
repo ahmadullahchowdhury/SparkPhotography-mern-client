@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLoaderData, Link, Navigate, useLocation } from "react-router-dom";
 import { fireAuthContext } from "../../Context/Context";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ServiceDetails = () => {
   const { user } = useContext(fireAuthContext);
@@ -21,6 +23,7 @@ const ServiceDetails = () => {
         );
 
         setReviews(filterReview);
+        
 
         // console.log(data)
       });
@@ -60,17 +63,22 @@ const ServiceDetails = () => {
         .then((data) => {
           console.log(data);
           form.reset()
+          toast.success("Review Added Successfully", { autoClose: 1000 });
         })
         .catch((err) => console.error(err));
 
   }
+
+//   const handleLogin = () => {
+//     return <Navigate to="/login" state={{from: location}} replace ></Navigate>
+//   }
 
   return (
     <div>
       <h1 className="m-4 font-3xl font-bold text-center">
         Here is details of: {service.title}
       </h1>
-      <div className="flex justify-center w-2/3 mx-auto">
+      <div className="flex flex-col lg:flex justify-center w-2/3 mx-auto">
         <img className="" src={service.img} alt="" />
         <p className="m-4  text-center ">{service.description}</p>
       </div>
@@ -96,18 +104,10 @@ const ServiceDetails = () => {
         </>
       ))}
       {user?.email ? (
-        "you can put review"
-      ) : (
         <>
-          <Link to="/login" className="btn btn-secondary">
-            {" "}
-            Please Login First
-          </Link>
-        </>
-      )}
-
-
-<form onSubmit={handleReview}>
+        <h1 className="text-center text-3xl m-3">You Can post review</h1>
+        <div className="flex  justify-center m-3" >
+<form className="mx-auto" onSubmit={handleReview}>
         <input
           type="text"
           name="reviewDetails"
@@ -116,9 +116,25 @@ const ServiceDetails = () => {
         />
 
 
-        <input className="btn" type="submit" value="Submit Review" />
+        <input className="btn m-3 pl-5" type="submit" value="Submit Review" />
       </form>
-      <div></div>
+
+      </div>
+
+        </>
+      ) : (
+        <>
+        <div className="flex justify-center">
+
+          <button  onClick={()=> {
+              <Navigate to="/login" state={{from: location}} replace ></Navigate>
+          }} className="btn btn-secondary ">Please Login First</button>
+        </div>
+        </>
+      )}
+
+
+<ToastContainer autoClose={1000}  />
     </div>
   );
 };

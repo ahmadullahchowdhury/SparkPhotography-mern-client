@@ -33,9 +33,9 @@ const Home = () => {
            </div>
 
            <h1 className='text-3xl font-bold text-center p-4' >Explore List of services</h1> 
-           <div className='grid grid-cols-3 justify-center'>
+           <div className='grid grid-cols-1  mx-auto md:grid-cols-3  justify-center '>
             {
-                services.map(service =>  <div key={service._id} className=" w-96 mx-auto card card-side bg-base-100 shadow-xl">
+                services.map(service =>  <div key={service._id} className=" w-96 mx-auto card card-side bg-base-100 shadow-xl p-3">
                 <figure><img className='h-full' src={service.img} alt="img"/></figure>
                 <div className="card-body">
                   <h2 className="card-title">{service.title}</h2>
