@@ -11,6 +11,7 @@ import AddService from './Components/AddService/AddService';
 import MyReviews from './Components/MyReviews/MyReviews';
 import Services from './Components/Services/Services';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import ServiceDetails from './Components/ServiceDetails.js/ServiceDetails';
 
 function App() {
   const router = createBrowserRouter([
@@ -62,6 +63,12 @@ function App() {
           path: "services",
           loader :() => fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/services`),
           element: <Services></Services>,
+          errorElement: <Error></Error>
+        },
+        {
+          path: "services/:id",
+          loader :({params}) => fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/services/${params.id}`),
+          element: <ServiceDetails></ServiceDetails>,
           errorElement: <Error></Error>
         },
         { path: '*', element: <Error/>},
