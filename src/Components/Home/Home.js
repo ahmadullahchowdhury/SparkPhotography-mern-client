@@ -1,6 +1,6 @@
 import React from 'react';
 import useTitle from '../Hooks/hooks';
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData , Link } from "react-router-dom";
 
 const Home = () => {
     useTitle('Home')
@@ -35,7 +35,7 @@ const Home = () => {
            <h1 className='text-3xl font-bold text-center p-4' >Explore List of services</h1> 
            <div className='grid grid-cols-3 justify-center'>
             {
-                services.map(service =>  <div className="card card-side bg-base-100 shadow-xl">
+                services.map(service =>  <div key={service._id} className="card card-side bg-base-100 shadow-xl">
                 <figure><img className='h-full' src={service.img} alt="img"/></figure>
                 <div className="card-body">
                   <h2 className="card-title">{service.title}</h2>
@@ -54,7 +54,9 @@ const Home = () => {
            </div>
            <div className='flex justify-center'>
 
-           <button className='btn btn-primary '>See All </button>
+            <Link  className='btn btn-primary' to='/services'>See All </Link>
+
+           
            </div>
         </div>
     );

@@ -60,6 +60,7 @@ function App() {
         },
         {
           path: "services",
+          loader :() => fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/services`),
           element: <Services></Services>,
           errorElement: <Error></Error>
         },
