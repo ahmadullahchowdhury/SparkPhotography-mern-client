@@ -85,6 +85,13 @@ const ServiceDetails = () => {
       <h1 className="m-4 font-3xl font-bold text-center">
         Here is Reviews of: {service.title}
       </h1>
+      {
+        reviews.length === 0 ?       <h1 className="m-4 font-2xl font-bold text-center">
+        NO Review
+      </h1> :      <h1 className="m-4 font-2xl font-bold text-center">
+        All Review
+      </h1>
+      }
 
       {reviews.map((review) => (
         <>
