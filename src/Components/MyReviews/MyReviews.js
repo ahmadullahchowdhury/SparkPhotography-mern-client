@@ -3,6 +3,7 @@ import useTitle from "../Hooks/hooks";
 import { fireAuthContext } from "../../Context/Context";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link, useLoaderData } from "react-router-dom";
 
 const MyReviews = () => {
   const { user } = useContext(fireAuthContext);
@@ -71,7 +72,9 @@ const MyReviews = () => {
               <h1>{review.details}</h1>
             </div>
             <button className="btn btn-warning m-3" onClick={ () => handleDelete(review._id)} >Delete</button>
-            <button className="btn btn-secondary m-3"  >Update Review</button>
+            <Link to={`/update-review/${review._id}`}>
+            <button className="btn btn-secondary m-3" >Update</button>
+          </Link>
           </div>
         </>
       ))}
