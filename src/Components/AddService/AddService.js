@@ -42,44 +42,46 @@ const AddService = () => {
   return (
     <>
       <h1 className="text-center text-3xl m-3">You Can post review</h1>
-      <div className="flex  justify-center m-3">
-        <form className="mx-auto" onSubmit={handleAddService}>
+        <form className="flex justify-center" onSubmit={handleAddService}>
+      <div className="grid grid-cols-1  ">
+
           <input
             type="text"
             name="serviceId"
             placeholder="Service ID: PUT 3 digit number"
-            className="input input-bordered input-primary w-full max-w-xs"
+            className="input input-bordered input-primary w-full max-w-xs m-3"
           />
           <input
             type="text"
             name="serviceTitle"
             placeholder="Service Title"
-            className="input input-bordered input-primary w-full max-w-xs"
+            className="input input-bordered input-primary w-full max-w-xs m-3"
           />
           <input
             type="text"
             name="serviceImg"
             placeholder="PUT img link here"
-            className="input input-bordered input-primary w-full max-w-xs"
+            className="input input-bordered input-primary w-full max-w-xs m-3"
           />
           <input
             type="text"
             name="servicePrice"
             placeholder="Price"
-            className="input input-bordered input-primary w-full max-w-xs"
+            className="input input-bordered input-primary w-full max-w-xs m-3"
           />
           <input
             type="text"
             name="serviceDescription"
             placeholder="Service Description"
-            className="input input-bordered input-primary w-full max-w-xs"
+            className="input input-bordered input-primary w-full max-w-xs m-3"
           />
 
-          <input className="btn m-3 pl-5" type="submit" value="Submit Review" />
+          <input className="btn m-3 pl-5" type="submit" value="Submit Service" />
+      </div>
         </form>
 
         <ToastContainer autoClose={1000}  />
-      </div>
+   
     </>
   );
 };
