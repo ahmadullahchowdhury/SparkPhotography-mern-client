@@ -130,9 +130,7 @@ const ServiceDetails = () => {
         <>
         <div className="flex justify-center">
 
-          <button  onClick={()=> {
-              <Navigate to="/login" state={{from: location}} replace ></Navigate>
-          }} className="btn btn-secondary ">Please Login First</button>
+          <Link to="/login" className="btn btn-secondary ">Please Login First</Link>
         </div>
         </>
       )}
