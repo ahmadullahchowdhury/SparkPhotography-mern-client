@@ -88,13 +88,10 @@ const ServiceDetails = () => {
 
       {reviews.map((review) => (
         <>
-          <div key={review._id}>
-            <div className="flex justify-center m-3 p-3">
+          <div >
+            <div  className="flex justify-center m-3 p-3">
               <img
-                className="w-10 h-10 rounded rounded-xl"
-                src={review.user_img}
-                alt=""
-              />
+                className="w-10 h-10 rounded rounded-xl"  src={review.user_img}  />
               <div className="ml-4">
                 <p>{review.name}</p>
                 <h1>{review.details}</h1>

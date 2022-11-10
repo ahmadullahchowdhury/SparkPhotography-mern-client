@@ -1,12 +1,16 @@
 import React from 'react';
 import useTitle from '../Hooks/hooks';
 import { useLoaderData , Link } from "react-router-dom";
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const Home = () => {
     useTitle('Home')
     const services = useLoaderData()
     console.log(services)
     return (
+        <PhotoProvider>
+
         <div>
            <h1 className='text-3xl font-bold text-center p-4' >Welcome to Spark Photography</h1> 
            <h1 className='text-xl font-bold text-center p-4' >Here I provide all kinds of photography service</h1> 
@@ -36,11 +40,15 @@ const Home = () => {
            <div className='grid grid-cols-1  mx-auto md:grid-cols-3  justify-center '>
             {
                 services.map(service =>  <div key={service._id} className=" w-96 mx-auto card card-side bg-base-100 shadow-xl p-3">
-                <figure><img className='h-full' src={service.img} alt="img"/></figure>
+                     <PhotoView key={service._id} src={service.img}>
+
+                <img className='w-1/2 h-2/3 my-auto' src={service.img} alt="img"/>
+                     </PhotoView>
                 <div className="card-body">
                   <h2 className="card-title">{service.title}</h2>
                   <h2 className="card-title"> Price: {service.price}</h2>
-                  <p>{service.description.slice(0,100)}</p>
+                  <div className='inline-flex' ><p>{service.description.slice(0,100)}<p>...</p></p></div>
+                  
                   <div className="card-actions justify-end">
                   <Link  className='btn btn-primary' to={`/services/${service._id}`}>See More </Link>
                   </div>
@@ -59,6 +67,7 @@ const Home = () => {
            
            </div>
         </div>
+        </PhotoProvider>
     );
 };
 
