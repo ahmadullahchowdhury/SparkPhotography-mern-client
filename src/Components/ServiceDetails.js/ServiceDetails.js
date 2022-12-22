@@ -4,6 +4,7 @@ import { fireAuthContext } from "../../Context/Context";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const ServiceDetails = () => {
   const { user } = useContext(fireAuthContext);
   const service = useLoaderData();
@@ -87,13 +88,13 @@ const ServiceDetails = () => {
       </h1>
       {
         reviews.length === 0 ?       <h1 className="m-4 font-2xl font-bold text-center">
-        NO Review
+        No Review
       </h1> :      <h1 className="m-4 font-2xl font-bold text-center">
         All Review
       </h1>
       }
 
-      {reviews.map((review) => (
+      { reviews.map((review) => (
         <>
           <div >
             <div  className="flex justify-center m-3 p-3">
@@ -130,7 +131,7 @@ const ServiceDetails = () => {
         <>
         <div className="flex justify-center">
 
-          <Link to="/login" className="btn btn-secondary ">Please Login First</Link>
+        <Link to="/login" className="btn btn-secondary ">Please Login First</Link>
         </div>
         </>
       )}

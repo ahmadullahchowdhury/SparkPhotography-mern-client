@@ -29,14 +29,21 @@ const Login = () => {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
+
+
+            
+            getUserToken(user.email)
+
             navigate(from, {replace: true})
-            console.log(user)
+            // console.log(userDB)
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setError(errorMessage)
           });
+
+
           
       };
 
@@ -47,8 +54,32 @@ const Login = () => {
           
           // The signed-in user info.
           const user = result.user;
-          console.log(user)
+
+          const userDB = {
+            name: user.displayName,
+            email: user.email
+          }
+          
+            fetch("https://b6a11-service-review-server-side-kowcher99.vercel.app/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userDB),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+ 
+              })
+              .catch((err) => console.error(err));
+
+
+          
+
+          getUserToken(user.email)
           navigate(from, {replace: true})
+
           // ...
         }).catch((error) => {
           // Handle Errors here.
@@ -59,7 +90,26 @@ const Login = () => {
   
           // ...
         });
+
+        // const getUserToken1 = email =>{
+
+        //   console.log(email)
+        // }
       }
+
+
+      const getUserToken = email =>{
+        fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+          if(data.accessToken){
+            console.log(data.accessToken)
+            localStorage.setItem('accessToken', data.accessToken)
+            navigate("/")
+          }
+        }).catch((err) => console.error(err));
+      }
+
     return (
         <div>
         <div className="hero min-h-screen bg-base-200">

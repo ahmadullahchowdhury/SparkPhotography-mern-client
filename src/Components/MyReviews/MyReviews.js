@@ -13,29 +13,33 @@ const MyReviews = () => {
 
   useEffect(() => {
     fetch(
-      "https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews"
+      `https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+        }
+      }
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
 
-        const filterEmail = data.filter((email) => user.email === email.email);
-        console.log(filterEmail);
+        // const filterEmail = data.filter((email) => user.email === email.email);
+        // // console.log(filterEmail);
 
-        setReviews(filterEmail);
+        setReviews(data);
 
-        if (filterEmail.length === 0) {
-          setNoReview("No review found");
-        }
+        // if (filterEmail.length === 0) {
+        //   setNoReview("No review found");
+        // }
         // const filterReview =  data.filter(review => review.service_id === service.service_id )
 
         // console.log(data)
       });
-  }, [reviews, user.email]);
+  }, [ reviews, user.email]); 
 
   const handleDelete = id => {
     const proceed = window.confirm(`Are you sure to delete this: ${id}`)
-    console.log(proceed)
+    // console.log(proceed)
     
     if(proceed){
         fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews/${id}`, {

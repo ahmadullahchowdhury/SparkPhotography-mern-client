@@ -4,6 +4,8 @@ import { getAuth  } from "firebase/auth";
 import app from "../Firebase/Firebase.init";
 import { fireAuthContext } from "../../Context/Context";
 import useTitle from "../Hooks/hooks";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const auth = getAuth(app);
 
@@ -11,7 +13,7 @@ const auth = getAuth(app);
 const Register = () => {
   useTitle('Register')
 
-    const [error, setError] = useState('')
+  const [error, setError] = useState('')
   const  navigate = useNavigate()
   const { createUser, profileUpdate } = useContext(fireAuthContext);
  
@@ -24,14 +26,18 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
+    const userDB = {
+      name,
+      email
+    }
+
     createUser(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        alert("Please go to login page");
         // ...
         handleUserUpdate(name, photoURL );
-        navigate("/login")
+        
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -47,9 +53,37 @@ const Register = () => {
         };
     
         profileUpdate(profile)
-          .then(() => {})
+          .then(() => {
+            fetch("https://b6a11-service-review-server-side-kowcher99.vercel.app/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userDB),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                toast.success("User signed up Successfully", { autoClose: 1000 });
+                getUserToken(email)
+              })
+              .catch((err) => console.error(err));
+
+
+          })
           .catch(() => {});
       };
+      const getUserToken = email =>{
+        fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+          if(data.accessToken){
+            console.log(data.accessToken)
+            localStorage.setItem('accessToken', data.accessToken)
+            navigate("/login")
+          }
+        })
+      }
     
   };
     return (
@@ -113,7 +147,7 @@ const Register = () => {
                 <div className="form-control mt-6">
                 <button className="btn btn-primary" >Register</button>
               </div>
-
+              <ToastContainer autoClose={1000}  />
               </form>
             </div>
           </div>

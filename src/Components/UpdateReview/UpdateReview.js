@@ -8,11 +8,13 @@ const UpdateReview = () => {
     console.log(review)
 
     const handleUpdateReview  = (event) => {       
-         event.preventDefault()
+        event.preventDefault()
         const reviewUpdateValue = event.target.updateReview.value
+
         const updatedReview= {
            details: reviewUpdateValue
         }
+        
         console.log(updatedReview)
 
         fetch(`https://b6a11-service-review-server-side-kowcher99.vercel.app/reviews/${review._id}`, {
